@@ -1,3 +1,11 @@
+getValue();
+// let db = getValue();
+// console.log(data);
+
+// db.then(function (res) {
+//   console.log(db.data);
+// }).catch(function (err) {});
+
 function getValue() {
   let promise = axios({
     url: "./../data/Data.json",
@@ -6,22 +14,23 @@ function getValue() {
   promise
     .then(function (res) {
       const arr = res;
-      console.log(res);
+      //   console.log(res);
 
       const navPills = res.data.navPills;
-      console.log(res.data.navPills);
+      //   console.log(res.data.navPills);
       renderPills(navPills);
 
       const tabPanes = res.data.tabPanes;
-      console.log(res.data.tabPanes);
+      //   console.log(res.data.tabPanes);
       render(tabPanes);
+      //   let data = tabPanes;
     })
     .catch(function (err) {
-      console.log(err);
+      //   console.log(err);
     });
+  return promise;
 }
-getValue();
-console.log(getValue());
+
 //   mở tab
 $("#myTab button").on("click", function (event) {
   event.preventDefault();
@@ -54,8 +63,8 @@ let render = (arr) => {
     let a = item.type;
     let src = item.imgSrc_png;
     document.getElementById(`${a}`).innerHTML += `
-        <button type="button" onclick="dressing2(${item.id})">
-            <img id="${item.id}" src="${item.imgSrc_jpg}"></img>
+        <button  onclick="dressing3('${item.id}')">
+            <img  style="width:100%; height:100%;" id="${item.id}" src="${item.imgSrc_jpg}"></img>
         </button>
             
         `;
@@ -64,7 +73,7 @@ let render = (arr) => {
 
 let dressing = (id, src) => {
   //   let { id, type, name, desc, imgSrc_jpg, imgSrc_png } = arr;
-  img = `<img src="${src}"></img>`;
+  img = `<img style="width:100%; height:100%;" src="${src}"></img>`;
   switch (arr.type) {
     case "topclothes":
       document.querySelector(".body").innerHTML = img;
@@ -97,23 +106,37 @@ let dressing2 = (id) => {
   });
   promise
     .then(function (res) {
-      //   const arr = res;
-      //   console.log(res);
-
-      const navPills = res.data.navPills;
-      //   console.log(res.data.navPills);
-
-      const tabPanes = res.data.tabPanes;
+      let tabPanes = res.data.tabPanes;
       //   console.log(res.data.tabPanes);
-      tabPanes.forEach((item, index) => {
-        if (id == item.id) {
-          let img = `<img src="${item.imgSrc_png}"></img>`;
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+};
+
+let dressing3 = (id) => {
+  let promise = axios({
+    url: "./../data/Data.json",
+    method: "GET",
+  });
+  promise
+    .then(function (res) {
+      console.log("huhu");
+      console.log(res.data.tabPanes);
+      res.data.tabPanes.forEach((item, index) => {
+        if (item.id == id) {
+          //   console.log(item);
+          //   let a = item[index];
+          //   console.log(item[index]);
+          let img = `<img style="width:100%; height:100%;" src="${item.imgSrc_png}"></img>`;
           switch (item.type) {
             case "topclothes":
               document.querySelector(".body").innerHTML = img;
+              document.querySelector(".bikinitop").innerHTML = img;
               break;
             case "botclothes":
               document.querySelector(".body").innerHTML = img;
+              document.querySelector(".bikinibottom").innerHTML = img;
               break;
             case "shoes":
               document.querySelector(".feet").innerHTML = img;
@@ -125,7 +148,7 @@ let dressing2 = (id) => {
               document.querySelector(".necklace").innerHTML = img;
               break;
             case "hairstyle":
-              document.querySelector(".model").innerHTML = img;
+              document.querySelector(".hairstyle").innerHTML = img;
               break;
             case "background":
               document.querySelector(".background").innerHTML = img;
@@ -134,7 +157,5 @@ let dressing2 = (id) => {
         }
       });
     })
-    .catch(function (err) {
-      console.log(err);
-    });
+    .catch(function (err) {});
 };

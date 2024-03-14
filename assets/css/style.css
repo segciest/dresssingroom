@@ -71,6 +71,8 @@
 .model {
   width: 60px;
   height: 77px;
+  /* width: 195px;
+  height: 225px; */
   background: url("./../images/model/1000new.png");
   position: absolute;
   top: 5%;
@@ -102,9 +104,9 @@
   width: 1000px;
   height: 1000px;
   position: absolute;
-  top: -75%;
-  right: -57%;
-  transform: scale(0.15);
+  top: -70%;
+  right: -59%;
+  transform: scale(0.18);
   z-index: 4;
 }
 
